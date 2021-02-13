@@ -1,6 +1,6 @@
 body {
-   background-color: dimgrey;
-   font-family: monospace;
+   background-color: whitesmoke;
+   font-family: sans-serif;
 }
 
 .App {
@@ -12,8 +12,8 @@ h1 {
 
 }
 button {
-   background-color: dimgray;
-   color: white;
+   background-color: lightgray;
+   color: #eee;
 }
 
 .App-logo {

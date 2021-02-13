@@ -70,6 +70,7 @@ class App extends Component {
            <label htmlFor="details">Details</label>
            <input type="text" id="details" onChange={this.handleChange} value={this.state.details}/>
            <br />
+           <button>Pain</button>
            <input type="submit" value="Create New Post" />
          </form>
          <br />
