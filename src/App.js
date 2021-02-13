@@ -1,151 +1,113 @@
-import logo from './logo.svg';
-import './App.css';
-import React from "react";
+import React from 'react'
+import { Component } from 'react'
+import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Route
 } from "react-router-dom";
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/topics">Topics</Link>
-          </li>
-        </ul>
+import './App.css';
 
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/topics">
-            <Topics />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+import axios from 'axios'
+
+class App extends Component {
+  state = {
+    name: '',
+    date: '',
+    details: '',
+    image: ''
+  }
+  getPosts = () => {
+    axios.get('http://localhost:3000/posts')
+    .then((response) => this.setState({posts: response.data}),
+    (err) => console.error(err))
+    .catch((error) => console.error(error))
+  }
+  handleChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value,
+    })
+  }
+  handleSubmit = (event) => {
+    event.preventDefault()
+    axios.post('http://localhost:3000/posts', this.state).then((response) => {this.getPosts()})
+  }
+  deletePost = (event) => {
+    axios.delete('http://localhost:3000/posts' + event.target.value).then((response) => {this.getPosts()})
+  }
+  updatePost = (event) => {
+    event.preventDefault()
+    const id = event.target.id
+    axios.put('http://localhost:3000/posts' + id, this.state).then((response) => {
+      this.getPosts()
+      this.setState({
+         name: '',
+         date: '',
+         details: '',
+         image: '',
+      })
+    })
+  }
+  componentDidMount = () => {
+    this.getPosts()
+  }
+  render = () => {
+    const output = (
+      <div className="post">
+       <h1> My Health App </h1>
+       <div>
+       <br />
+         <h3>Add New Entry</h3>
+         <br />
+         <form onSubmit={this.handleSubmit}>
+           <label htmlFor="name">Name</label>
+           <input type="text" id="name" onChange={this.handleChange} value={this.state.name} />
+           <br />
+           <label htmlFor="name">Image</label>
+           <input placeholder="url" type="text" id="image" onChange={this.handleChange} value={this.state.image} />
+           <br />
+           <label htmlFor="details">Details</label>
+           <input type="text" id="details" onChange={this.handleChange} value={this.state.details}/>
+           <br />
+           <input type="submit" value="Create New Post" />
+         </form>
+         <br />
+       </div>
+        {this.state.posts.map((post) => {
+          return (
+            <div>
+              <div className="post" key={post.id}>
+                <h3>Name: {post.name}</h3>
+                <img src={post.image} alt="" />
+                <p className="details">Details: {post.details}</p>
+                <p>Details: {post.details}</p>
+                <button value={post.id} onClick={this.deletePost}>Delete</button>
+              </div>
+              <div>
+                <details>
+                  <summary>Edit Post</summary>
+                  <form id={post.id} onSubmit={this.updatePost}>
+                    <label htmlFor="name">Name</label>
+                    <br />
+                    <label htmlFor="name">Image</label>
+                    <input type="url" id="image" onChange={this.handleChange} value={this.state.image} />
+                    <br />
+                    <label htmlFor="Details">Details</label>
+                    <input type="text" id="details" onChange={this.handleChange}/>
+                    <br />
+                    <input type="submit" value="Update Post" />
+                  </form>
+                </details>
+                <br />
+              </div>
+            </div>
+          )
+        })}
       </div>
-    </Router>
-  );
+    );
+    return output
+  }
 }
-
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Topics() {
-  let match = useRouteMatch();
-
-  return (
-    <div>
-      <h2>Topics</h2>
-
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>
-            Props v. State
-          </Link>
-        </li>
-      </ul>
-
-      {/* The Topics page has its own <Switch> with more routes
-          that build on the /topics URL path. You can think of the
-          2nd <Route> here as an "index" page for all topics, or
-          the page that is shown when no topic is selected */}
-      <Switch>
-        <Route path={`${match.path}/:topicId`}>
-          <Topic />
-        </Route>
-        <Route path={match.path}>
-          <h3>Please select a topic.</h3>
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-function Topic() {
-  let { topicId } = useParams();
-  return <h3>Requested topic ID: {topicId}</h3>;
-}
-
-function Page() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>,
-    <div>
-      <Switch>
-        {/* If the current URL is /about, this route is rendered
-            while the rest are ignored */}
-        <Route path="/about">
-          <About />
-        </Route>
-
-        {/* Note how these two routes are ordered. The more specific
-            path="/contact/:id" comes before path="/contact" so that
-            route will render when viewing an individual contact */}
-        <Route path="/contact/:id">
-          <Contact />
-        </Route>
-        <Route path="/contact">
-          <AllContacts />
-        </Route>
-
-        {/* If none of the previous routes render anything,
-            this route acts as a fallback.
-
-            Important: A route with path="/" will *always* match
-            the URL because all URLs begin with a /. So that's
-            why we put this one last of all */}
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-
-
-ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById("root")
-);
 
 export default App;

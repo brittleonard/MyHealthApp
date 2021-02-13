@@ -1,5 +1,19 @@
+body {
+   background-color: dimgrey;
+   font-family: monospace;
+}
+
 .App {
   text-align: center;
+}
+
+h1 {
+   margin: 20px;
+
+}
+button {
+   background-color: dimgray;
+   color: white;
 }
 
 .App-logo {
@@ -11,6 +25,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.ingredients{
+   width: 90%;
 }
 
 .App-header {
@@ -35,4 +53,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.recipes {
+   background-color: whitesmoke;
+   display: block;
+   text-align: center;
+   margin-left: 10%;
+   margin-right: 10%;
+
+
+
+
+}
+
+img {
+   width: 70%;
+   padding: 5%;
+
 }
