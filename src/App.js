@@ -13,7 +13,7 @@ class App extends Component {
     posts: [],
   }
   getPosts = () => {
-    axios.get('https://womenshealth-backend.herokuapp.com')
+    axios.get('http://localhost:3000/posts/')
     .then((response) => this.setState({posts: response.data}),
     (err) => console.error(err))
     .catch((error) => console.error(error))
@@ -25,15 +25,15 @@ class App extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('https://womenshealth-backend.herokuapp.com', this.state).then((response) => {this.getPosts()})
+    axios.post('http://localhost:3000/posts/', this.state).then((response) => {this.getPosts()})
   }
   deletePost = (event) => {
-    axios.delete('https://womenshealth-backend.herokuapp.com' + event.target.value).then((response) => {this.getPosts()})
+    axios.delete('http://localhost:3000/posts/' + event.target.value).then((response) => {this.getPosts()})
   }
   updatePost = (event) => {
     event.preventDefault()
     const id = event.target.id
-    axios.put('https://womenshealth-backend.herokuapp.com' + id, this.state).then((response) => {
+    axios.put('http://localhost:3000/posts/' + id, this.state).then((response) => {
       this.getPosts()
       this.setState({
          name: '',
@@ -51,32 +51,38 @@ class App extends Component {
       <div className="posts">
        <h1> My Health App </h1>
        <br />
-       <div>
+       <div className="form">
          <h3>Add New Entry</h3>
          <br />
          <form onSubmit={this.handleSubmit}>
-           <label htmlFor="name">Name</label>
+           <label htmlFor="name">Name</label> <br />
            <input type="text" id="name" onChange={this.handleChange} value={this.state.name} />
            <br />
-           <label htmlFor="date">Date</label>
+           <label htmlFor="date">Date</label> <br />
            <input type="text" id="date" onChange={this.handleChange} value={this.state.date} />
            <br />
-           <label htmlFor="details">Details</label>
+           <label htmlFor="details">Details</label> <br />
            <input type="text" id="details" onChange={this.handleChange} value={this.state.details}/>
            <br />
-           <button onClick="true">Pain</button>
            <br />
-           <input type="submit" value="Create New Post" />
+           <button onClick="true">Cramps</button>
+           <button onClick="true">Headache</button>
+           <button onClick="true">Nausea</button>
+           <button onClick="true">Fatigue</button>
+           <button onClick="true">Hormonal</button>
+           <button onClick="true">Other</button>
+           <br />
+           <input className="submit" type="submit" value="Create New Post" />
          </form>
          </div>
         {this.state.posts.map((post) => {
           return (
             <div>
-              <div className="post" key={post.id}>
+              <div className="posts" key={post.id}>
                 <h3>Name: {post.name}</h3>
-                <img src={post.image} alt="" />
+                <img src={post.image} alt="image entry" />
                 <p className="details">Details: {post.details}</p>
-                <p>Details: {post.details}</p>
+                <p>Date: {post.date}</p>
                 <button value={post.id} onClick={this.deletePost}>Delete</button>
               </div>
               <div>
@@ -101,7 +107,7 @@ class App extends Component {
         })}
       </div>
     );
-    return output
+    return output;
   }
 }
 
