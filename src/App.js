@@ -1,12 +1,6 @@
-import React from 'react'
-import { Component } from 'react'
+import React from 'react';
+import { Component } from 'react';
 import ReactDOM from "react-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-
 import './App.css';
 
 import axios from 'axios'
@@ -16,10 +10,11 @@ class App extends Component {
     name: '',
     date: '',
     details: '',
-    image: ''
+    image: '',
+    posts: [],
   }
   getPosts = () => {
-    axios.get('http://localhost:3000/posts')
+    axios.get('http://localhost:3001/posts')
     .then((response) => this.setState({posts: response.data}),
     (err) => console.error(err))
     .catch((error) => console.error(error))
@@ -31,15 +26,15 @@ class App extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('http://localhost:3000/posts', this.state).then((response) => {this.getPosts()})
+    axios.post('http://localhost:3001/posts', this.state).then((response) => {this.getPosts()})
   }
   deletePost = (event) => {
-    axios.delete('http://localhost:3000/posts' + event.target.value).then((response) => {this.getPosts()})
+    axios.delete('http://localhost:3001/posts' + event.target.value).then((response) => {this.getPosts()})
   }
   updatePost = (event) => {
     event.preventDefault()
     const id = event.target.id
-    axios.put('http://localhost:3000/posts' + id, this.state).then((response) => {
+    axios.put('http://localhost:3001/posts' + id, this.state).then((response) => {
       this.getPosts()
       this.setState({
          name: '',
@@ -54,27 +49,27 @@ class App extends Component {
   }
   render = () => {
     const output = (
-      <div className="post">
+      <div className="posts">
        <h1> My Health App </h1>
-       <div>
        <br />
+       <div>
          <h3>Add New Entry</h3>
          <br />
          <form onSubmit={this.handleSubmit}>
            <label htmlFor="name">Name</label>
            <input type="text" id="name" onChange={this.handleChange} value={this.state.name} />
            <br />
-           <label htmlFor="name">Image</label>
-           <input placeholder="url" type="text" id="image" onChange={this.handleChange} value={this.state.image} />
+           <label htmlFor="date">Date</label>
+           <input type="text" id="date" onChange={this.handleChange} value={this.state.date} />
            <br />
            <label htmlFor="details">Details</label>
            <input type="text" id="details" onChange={this.handleChange} value={this.state.details}/>
            <br />
-           <button>Pain</button>
+           <button onClick="true">Pain</button>
+           <br />
            <input type="submit" value="Create New Post" />
          </form>
-         <br />
-       </div>
+         </div>
         {this.state.posts.map((post) => {
           return (
             <div>
