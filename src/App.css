@@ -27,7 +27,7 @@ button {
   }
 }
 
-.ingredients{
+.details{
    width: 90%;
 }
 
@@ -55,7 +55,7 @@ button {
   }
 }
 
-.recipes {
+.posts {
    background-color: whitesmoke;
    display: block;
    text-align: center;
