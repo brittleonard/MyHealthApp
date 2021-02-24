@@ -13,7 +13,7 @@ class App extends Component {
     posts: [],
   }
   getPosts = () => {
-    axios.get('/posts')
+    axios.get('https://womenshealth-backend.herokuapp.com/posts')
     .then((response) => this.setState({posts: response.data}),
     (err) => console.error(err))
     .catch((error) => console.error(error))
@@ -26,15 +26,15 @@ class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     console.log(this.state);
-    axios.post('/posts', this.state).then((response) => {this.getPosts()})
+    axios.post('https://womenshealth-backend.herokuapp.com/posts', this.state).then((response) => {this.getPosts()})
   }
   deletePost = (event) => {
-    axios.delete('/posts' + event.target.value).then((response) => {this.getPosts()})
+    axios.delete('https://womenshealth-backend.herokuapp.com/posts' + event.target.value).then((response) => {this.getPosts()})
   }
   updatePost = (event) => {
     event.preventDefault()
     const id = event.target.id
-    axios.put('/posts' + id, this.state).then((response) => {
+    axios.put('https://womenshealth-backend.herokuapp.com/posts' + id, this.state).then((response) => {
       this.getPosts()
       this.setState({
          name: '',
