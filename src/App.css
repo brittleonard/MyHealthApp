@@ -1,31 +1,32 @@
 body {
    display: grid;
-   background-color: whitesmoke;
-   font-family: cochin;
-}
-
-.App {
-  text-align: center;
-}
-.form {
-   padding: 1.5em;
-   display: grid;
    background-color: #f0b4b4;
-   grid-gap: 3;
-   font-size: 20px;
+   font-family: cochin;
+   text-align: center;
 }
 h1 {
+   transform: scale(2);
    margin: 20px;
    color: #6a1a1a;
    font-family: cochin;
 }
 h2 {
-   color: black;
+   transform: translateY(2.5em) scale(1.5);
+   color: #6b1b1c;
    font-family: cochin;
-   padding: 30px;
+
+}
+.form {
+   display: grid;
+   padding: 1.75em;
+   background-color: #8a6d80;
+   grid-gap: 3;
+   font-size: 20px;
 }
 .entry {
    background-color: bisque;
+   padding-top: 10%;
+
 }
 button {
    margin: 2px;
@@ -102,18 +103,20 @@ input {
 
 .post {
    display: block;
+   color: whitesmoke;
    text-align: center;
-   margin-left: 20%;
-   margin-right: 20%;
+   margin-left: 7%;
+   margin-right: 7%;
    padding-top: .5em;
 }
 
 .posts {
-   background-color: whitesmoke;
+   background-color: floralwhite;
    display: block;
    text-align: center;
    margin-left: 10%;
    margin-right: 10%;
+   padding: 2%;
 
 }
 

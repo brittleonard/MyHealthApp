@@ -1,0 +1,62 @@
+// getPosts = () => {
+//   axios.get('https://womenshealth-backend.herokuapp.com/posts')
+//   .then((response) => this.setState({posts: response.data}),
+//   (err) => console.error(err))
+//   .catch((error) => console.error(error))
+// }
+
+
+
+ //  handleSubmit = (event) => {
+ //     event.preventDefault();
+ //     this.props.handleSubmit(event, {
+ //       name: this.state.name,
+ //       date: this.state.date,
+ //       details: this.state.details,
+ //       image: this.state.image
+ //     });
+ // }
+
+
+
+   // handleSubmit = (event) => {
+   //   event.preventDefault()
+   //   console.log(this.state.posts);
+   //   axios.post('https://womenshealth-backend.herokuapp.com/posts', this.state).then((response) => {this.getPosts()})
+   // }
+
+
+     // this.myPosts = this.state.posts.map((post, index) => {
+     //    return (
+     //      <div className="entry" key={index}>
+     //      <div>
+     //      <br />
+     //      <br />
+     //        <div className="posts">
+     //          <h3>Name: {post.name}</h3>
+     //          <img src={post.image} alt="image entry" />
+     //          <p className="details">Details: {post.details}</p>
+     //          <p>Date: {post.date}</p>
+     //          <button value={post.id} onClick={this.deletePost}>Delete</button>
+     //        </div>
+     //        <div>
+     //          <details>
+     //            <summary>Edit Post</summary>
+     //            <form id={post.id}>
+     //              <label htmlFor="name">Name</label>
+     //              <br />
+     //              <label htmlFor="name">Image</label>
+     //              <input type="url" id="image" onChange={this.handleChange} value={this.state.image} />
+     //              <br />
+     //              <label htmlFor="Details">Details</label>
+     //              <input type="text" id="details" onChange={this.handleChange}/>
+     //              <br />
+     //              <input onClick={()=>this.updatePost(this.state.posts.id)} type="submit" value="Update Post" />
+     //            </form>
+     //          </details>
+     //          <br />
+     //         </div>
+     //        </div>
+     //      </div>
+     //    )
+     // })
