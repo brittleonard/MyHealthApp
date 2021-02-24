@@ -13,7 +13,7 @@ class App extends Component {
     posts: [],
   }
   getPosts = () => {
-    axios.get('http://localhost:3000/posts/')
+    axios.get('/posts')
     .then((response) => this.setState({posts: response.data}),
     (err) => console.error(err))
     .catch((error) => console.error(error))
@@ -25,15 +25,16 @@ class App extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('http://localhost:3000/posts/', this.state).then((response) => {this.getPosts()})
+    console.log(this.state);
+    axios.post('/posts', this.state).then((response) => {this.getPosts()})
   }
   deletePost = (event) => {
-    axios.delete('http://localhost:3000/posts/' + event.target.value).then((response) => {this.getPosts()})
+    axios.delete('/posts' + event.target.value).then((response) => {this.getPosts()})
   }
   updatePost = (event) => {
     event.preventDefault()
     const id = event.target.id
-    axios.put('http://localhost:3000/posts/' + id, this.state).then((response) => {
+    axios.put('/posts' + id, this.state).then((response) => {
       this.getPosts()
       this.setState({
          name: '',
@@ -63,21 +64,15 @@ class App extends Component {
            <br />
            <label htmlFor="details">Details</label> <br />
            <input type="text" id="details" onChange={this.handleChange} value={this.state.details}/>
+
            <br />
-           <br />
-           <button onClick="true">Cramps</button>
-           <button onClick="true">Headache</button>
-           <button onClick="true">Nausea</button>
-           <button onClick="true">Fatigue</button>
-           <button onClick="true">Hormonal</button>
-           <button onClick="true">Other</button>
-           <br />
-           <input className="submit" type="submit" value="Create New Post" />
+           <input onClick={this.handleSubmit} className="submit" type="submit" value="Create New Post" />
          </form>
          </div>
         {this.state.posts.map((post) => {
           return (
-            <div>
+            <div className="entry">
+               <h2> Recent Entries </h2>
               <div className="posts" key={post.id}>
                 <h3>Name: {post.name}</h3>
                 <img src={post.image} alt="image entry" />

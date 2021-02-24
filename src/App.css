@@ -18,7 +18,14 @@ h1 {
    margin: 20px;
    color: #6a1a1a;
    font-family: cochin;
-
+}
+h2 {
+   color: black;
+   font-family: cochin;
+   padding: 30px;
+}
+.entry {
+   background-color: bisque;
 }
 button {
    margin: 2px;
