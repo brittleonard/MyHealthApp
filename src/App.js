@@ -62,10 +62,11 @@ class App extends Component {
            <label htmlFor="date">Date</label> <br />
            <input type="text" id="date" onChange={this.handleChange} value={this.state.date} />
            <br />
-           <label htmlFor="details">Details</label> <br />
-           <input type="text" id="details" onChange={this.handleChange} value={this.state.details}/>
            <label htmlFor="image">Image</label> <br />
            <input type="text" id="image" onChange={this.handleChange} value={this.state.image}/>
+           <br />
+           <label htmlFor="details">Details</label> <br />
+           <input type="text" id="details" onChange={this.handleChange} value={this.state.details}/>
            <br />
            <input onClick={this.handleSubmit} className="submit" type="submit" value="Create New Post" />
          </form>
