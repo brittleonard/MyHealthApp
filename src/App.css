@@ -18,7 +18,7 @@ h2 {
 }
 .form {
    display: grid;
-   padding: 1.75em;
+   padding-top: 1.75em;
    background-color: #8a6d80;
    grid-gap: 3;
    font-size: 20px;
